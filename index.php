@@ -3,7 +3,6 @@ require('model/database.php');
 require('model/assignment_db.php');
 require('model/course_db.php');
 
-//The code is using filter_input to sanitize and validate user input. It's retrieving values from POST and GET requests and filtering them to ensure they are of the expected data types and are safe to use.
 $assignment_id = filter_input(INPUT_POST, 'assignment_id', FILTER_VALIDATE_INT);
 $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
 $course_name = filter_input(INPUT_POST, 'course_name', FILTER_SANITIZE_STRING);
@@ -22,19 +21,15 @@ if (!$action) {
     }
 }
 
-//The code uses a switch statement based on the $action variable. The possible actions include listing courses, adding a course, adding an assignment, deleting a course, deleting an assignment, and a default case that retrieves data for displaying assignments.
 switch ($action) {
-        //Retrieves a list of courses, includes the appropriate view template (course_list.php), and displays the list of courses.
     case "list_courses":
         $courses = get_courses();
         include('view/course_list.php');
         break;
-        //Adds a new course using the add_course function, then redirects to list the courses.
     case "add_course":
         add_course($course_name);
         header("Location: .?action=list_courses");
         break;
-        //Adds a new assignment to a course, then redirects to display the assignments for that course. If the data is invalid, an error is displayed.
     case "add_assignment":
         if ($course_id && $description) {
             add_assignment($course_id, $description);
@@ -45,7 +40,6 @@ switch ($action) {
             exit();
         }
         break;
-        //Deletes a course using the delete_course function, handling a potential error if assignments exist for the course, and redirects to list the courses.
     case "delete_course":
         if ($course_id) {
             try {
@@ -58,7 +52,6 @@ switch ($action) {
             header("Location: .?action=list_courses");
         }
         break;
-        //Deletes an assignment using the delete_assignment function and redirects to display the assignments for the corresponding course.
     case "delete_assignment":
         if ($assignment_id) {
             delete_assignment($assignment_id);
@@ -68,7 +61,6 @@ switch ($action) {
             include('view/error.php');
         }
         break;
-        //retrieves data for displaying assignments associated with a specific course
     default:
         $course_name = get_course_name($course_id);
         $courses = get_courses();
