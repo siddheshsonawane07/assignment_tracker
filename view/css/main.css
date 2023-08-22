@@ -159,7 +159,7 @@ a:hover {
   display: grid;
   grid-template-columns: 80% 20%;
   -moz-column-gap: 5px;
-       column-gap: 5px;
+  column-gap: 5px;
 }
 @media only screen and (min-width: 600px) {
   .add__form {
@@ -219,4 +219,4 @@ a:hover {
 .add-button:active {
   transform: translate(1px, 2px);
   box-shadow: 1px 1px 0 #000;
-}/*# sourceMappingURL=main.css.map */
+} /*# sourceMappingURL=main.css.map */
