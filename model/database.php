@@ -9,9 +9,12 @@ try {
     $db = new PDO($dsn, $username);
 
     // Set PDO error mode to exception
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // echo "Connected successfully to the database!";
 } catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+    $error = "Databse Error: ";
+    $error .= $e->getMessage();
+    include('view/error.php');
+    exit();
 }
